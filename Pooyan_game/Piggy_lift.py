@@ -7,7 +7,7 @@ from helpers.update_rect_position import update_rect_position
 class Piggy_lift(pg.sprite.Sprite):
   """moves a lift up and down"""
     
-  def __init__(self, allsprites, add_to_allsprites):
+  def __init__(self, allsprites, add_to_allsprites, arrows_group):
     pg.sprite.Sprite.__init__(self)
     screen = pg.display.get_surface()
     vertical_center = screen.get_height() / 2
@@ -19,6 +19,7 @@ class Piggy_lift(pg.sprite.Sprite):
     self.max_speed = 8
     self.allsprites = allsprites
     self.add_to_allsprites = add_to_allsprites
+    self.arrows_group = arrows_group
 
     # charge variables
     self.charge_value = 0
@@ -39,6 +40,7 @@ class Piggy_lift(pg.sprite.Sprite):
     elif self.charge_value > 0:
       arrow_instance = Arrow(self.charged_arrow_rect, self.charge_value, self.speedY)
       self.add_to_allsprites(self.allsprites, arrow_instance)
+      self.arrows_group.add(arrow_instance)
       self.charge_value = 0
       
     if keys[pg.K_w]:
